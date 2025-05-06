@@ -2,42 +2,44 @@ import os
 import sqlite3
 
 # Function to add data
+
+
 def add_publishers(cursor, id, name):
     try:
-        cursor.execute("INSERT INTO publishers (publisher_id, publisher_name) VALUES (?, ?)", (id, name))
+        cursor.execute(
+            "INSERT INTO publishers (publisher_id, publisher_name) VALUES (?, ?)", (id, name))
     except sqlite3.IntegrityError:
         print(f"{name} is already in the database.")
+
 
 def add_magazines(cursor, id, name, pid):
     try:
-        cursor.execute("INSERT INTO magazines (magazine_id, magazine_name, publisher_id) VALUES (?, ?, ?)", (id, name, pid))
+        cursor.execute(
+            "INSERT INTO magazines (magazine_id, magazine_name, publisher_id) VALUES (?, ?, ?)", (id, name, pid))
     except sqlite3.IntegrityError:
         print(f"{name} is already in the database.")
+
 
 def add_subscribers(cursor, id, name, address):
     try:
-        cursor.execute("INSERT INTO subscribers (subscriber_id, subscriber_name, subscriber_address) VALUES (?, ?, ?)", (id, name, address))
+        cursor.execute(
+            "INSERT INTO subscribers (subscriber_id, subscriber_name, subscriber_address) VALUES (?, ?, ?)", (id, name, address))
     except sqlite3.IntegrityError:
         print(f"{name} is already in the database.")
 
+
 def add_subscriptions(cursor, id, date, sid, mid):
     try:
-        cursor.execute("INSERT INTO subscriptions (subscription_id, expiration_date, subscriber_id, magazine_id) VALUES (?, ?, ?, ?)", (id, date, sid, mid))
+        cursor.execute(
+            "INSERT INTO subscriptions (subscription_id, expiration_date, subscriber_id, magazine_id) VALUES (?, ?, ?, ?)", (id, date, sid, mid))
     except sqlite3.IntegrityError:
         print(f"Subscription ID {id} is already in the database.")
 
 
-
-
-
 # Connect to database
-    with sqlite3.connect("../db/magazines.db") as conn:
-        conn.execute("PRAGMA foreign_keys = 1")
-        cursor = conn.cursor()
-
-
-
-
+with sqlite3.connect("../db/magazines.db") as conn:
+    conn.execute("PRAGMA foreign_keys = 1")
+    cursor = conn.cursor()
 
     # Create tables
     cursor.execute("""
@@ -77,7 +79,7 @@ def add_subscriptions(cursor, id, date, sid, mid):
     """)
 
     # Insert data
-    add_publishers(cursor, 10, 'Swan Books')  
+    add_publishers(cursor, 10, 'Swan Books')
     add_publishers(cursor, 20, 'Harrys Way')
     add_publishers(cursor, 30, 'Who Dunnit')
     add_publishers(cursor, 40, 'Who Are You')
@@ -96,35 +98,25 @@ def add_subscriptions(cursor, id, date, sid, mid):
     print("Tables created and sample data inserted successfully.")
 
 
+# SQL statements
+# Write a query to retrieve all information from the subscribers table.
 
-#SQL statements
-
-SELECT * 
-FROM subscribers;
-
-print("\nAll Subscribers:")
-cursor.execute("SELECT * FROM subscribers;")
-for row in cursor.fetchall():
+cursor.execute("SELECT * FROM subscribers")
+result = cursor.fetchall()
+for row in result:
     print(row)
 
-SELECT * from magazines ORDER BY magazine_name;
-
-print("\nAll Magazines (sorted by name):")
-cursor.execute("SELECT * FROM magazines ORDER BY magazine_name;")
-for row in cursor.fetchall():
+# Write a query to retrieve all magazines sorted by name.
+cursor.execute("SELECT * FROM magazines ORDER BY magazine_name")
+result = cursor.fetchall()
+for row in result:
     print(row)
 
-
-SELECT m.* from magazines m 
-JOIN publishers p ON m.publisher_id = p.publisher_id
-WHERE p.publisher_name = "Who Dunnit";
-
-print("\nMagazines published by 'Who Dunnit':")
-cursor.execute("""
-SELECT m.*
-FROM magazines m
-JOIN publishers p on m.publisher_id = p.publisher_ID
-WHERE p.publisher_name = 'Who Dunnit';
-""")
-for row in cursor.fetchall():
-    print(row)
+# Write a query to find magazines for a particular publisher, one of the publishers you created. This requires a JOIN.
+cursor.execute(
+    "SELECT m.* FROM magazines m JOIN publishers p ON m.publisher_id = p.publisher_id WHERE p.publisher_name = 'Who Dunnit'")
+result = cursor.fetchall()
+for row in result:
+    magazine_id, magazine_name, publisher_name = row
+    print(
+        f"ID: {magazine_id}, Magazine: {magazine_name}, Publisher: {publisher_name}")

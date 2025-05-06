@@ -12,27 +12,35 @@ with sqlite3.connect("../db/lesson.db") as conn:
     FROM line_items li
     JOIN products p ON line_items.product_id = products.product_id
     """
-    
-    df = pd.read_sql_query(sql_statement, conn)
 
-    # print the first 5 rows
-    print(df[:5])
+df = pd.read_sql_query(sql_statement, conn)
 
-    #total column
-    df['total'] = df['quantity'] * df['price'].)
-    print(df[:5])
+# print the first 5 rows
+print(df.head())
 
-    #group_by product_id
-    summary_df = df.groupby('product_id').agg(
-    line_item_count=pd.NamedAgg(column='line_item_id', aggfunc='count'),
-    total_paid=pd.NamedAgg(column='total', aggfunc='sum'),
-    product_name=pd.NamedAgg(column='product_name', aggfunc='first')
-).reset_index()
-    
-    #sort by product name
-    summary_df = summary_df.sort_values(by='product_name')
+# 4 add a column to the dataframe- total column
 
-    #adding to order_summary.csv
+df['total'] = df['quantity'] * df['price']
+print(df[:5])
 
-print("\nGrouped and Sorted Summary Data:")
-print(summary_df.head())
+# 5 Add groupby() code to group by the product_id
+
+summary = df.groupby('product_id').agg({
+    'line_item_id': 'count',
+    'total': 'sum',
+    'product_name': 'first'
+}).reset_index()
+
+print(summary(head))
+
+# 6 Sort the DataFrame by the product_name column.
+summary = summary.sort_values(by='product_name')
+
+# 7 write to CSV
+summary.to_csv("order_summary.csv", index=False)
+
+
+#     # adding to order_summary.csv
+
+# print("\nGrouped and Sorted Summary Data:")
+# print(summary_df.head())
