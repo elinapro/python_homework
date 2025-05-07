@@ -44,3 +44,4 @@ summary.to_csv("order_summary.csv", index=False)
 
 # print("\nGrouped and Sorted Summary Data:")
 # print(summary_df.head())
+# sql intro
