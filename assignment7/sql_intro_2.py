@@ -10,7 +10,7 @@ with sqlite3.connect("../db/lesson.db") as conn:
         p.product_name,
         p.price
     FROM line_items li
-    JOIN products p ON line_items.product_id = products.product_id
+    JOIN products p ON li.product_id = p.product_id
     """
 
 df = pd.read_sql_query(sql_statement, conn)
@@ -31,7 +31,7 @@ summary = df.groupby('product_id').agg({
     'product_name': 'first'
 }).reset_index()
 
-print(summary(head))
+print(summary.head())
 
 # 6 Sort the DataFrame by the product_name column.
 summary = summary.sort_values(by='product_name')
