@@ -1,0 +1,3 @@
+Everything was challenging, I took 2 weeks to finish this assignment.
+Finding mentor availability was a challenge, figuring out Xpath was a challenge. 
+The bots text was the easiest thing.

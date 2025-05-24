@@ -1,0 +1,57 @@
+Which sections of the website are restricted for crawling?
+
+W, API and Trap
+
+Disallow: /w/
+Disallow: /api/
+Disallow: /trap/
+Disallow: /wiki/Special:
+Disallow: /wiki/Spezial:
+Disallow: /wiki/Spesial:
+Disallow: /wiki/Special%3A
+Disallow: /wiki/Spezial%3A
+Disallow: /wiki/Spesial%3A
+
+
+Are there specific rules for certain user agents?
+
+Yes, there is a list of disallowed webcrawlers who have abused the site in the past such as the following:
+
+User-agent: sitecheck.internetseer.com
+
+User-agent: Zealbot
+
+User-agent: MSIECrawler
+
+User-agent: SiteSnagger
+
+User-agent: WebStripper
+
+User-agent: WebCopier
+
+User-agent: Fetch
+
+User-agent: Offline Explorer
+
+User-agent: Teleport
+
+User-agent: TeleportPro
+
+User-agent: WebZIP
+
+User-agent: linko
+
+User-agent: HTTrack
+
+User-agent: Microsoft.URL.Control
+
+User-agent: Xenu
+
+
+
+
+
+
+Reflect on why websites use robots.txt and write 2-3 sentences explaining its purpose and how it promotes ethical scraping?
+
+The file defines who is allowed to scrape what parts of a website in order to promote ethical scraping that meets the hosting website's request. 
