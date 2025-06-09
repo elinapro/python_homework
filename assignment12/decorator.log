@@ -1,0 +1,6 @@
+function: say_hello | positional parameters: none | keyword parameters: none | return: None
+function: always_true | positional parameters: [1, 2, 3] | keyword parameters: none | return: True
+function: show_keywords | positional parameters: none | keyword parameters: {'a': 10, 'b': 20} | return: None
+function: say_hello | positional parameters: none | keyword parameters: none | return: None
+function: always_true | positional parameters: [1, 2, 3] | keyword parameters: none | return: True
+function: show_keywords | positional parameters: none | keyword parameters: {'a': 10, 'b': 20} | return: None
